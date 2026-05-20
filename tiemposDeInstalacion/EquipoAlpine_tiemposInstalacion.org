@@ -92,3 +92,10 @@ La versión de Debian instalada fue la más básica posible, con nada más que l
 
 El tiempo de arranque de esta instalación es de *23.6 segundos*, medidos desde el primer fotograma de la pantalla inicial de la UEFI. Si medimos el tiempo considerando solamente desde que el hardware le pasa el control a la partición de arranque del sistema, esto nos da *20.71 segundos*
 
+* Red Hat Enterprise Linux
+
+Vas mari
+
+* Fedora
+
+Vas mari x2
