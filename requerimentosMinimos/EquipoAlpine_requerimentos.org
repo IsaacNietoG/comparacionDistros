@@ -146,3 +146,32 @@ Debian tiene un asistente bastante funcional para crear las particiones deseadas
 
 Con esto, podemos proceder a la instalación.
 
+* Redhat Enterprise Linux
+
+Vas mari
+
+* Fedora
+
+Vas mari x2
+
+* Bibliografía
+
+- (S/f-a). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/Repositories
+
+- (S/f-b). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/UEFI
+
+- (S/f-c). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/Alpine_Package_Keeper
+
+- (S/f-d). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/Setting_up_disks_manually
+
+- (S/f-e). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/System_Disk_Mode
+
+- (S/f-f). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/Configure_Networking
+
+- (S/f-g). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/Installation
+
+- (S/f-h). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/Filesystems
+
+- (S/f-i). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/Dualbooting
+
+- (S/f-j). Alpinelinux.org. Recuperado el 20 de mayo de 2026, de https://wiki.alpinelinux.org/wiki/Swap
