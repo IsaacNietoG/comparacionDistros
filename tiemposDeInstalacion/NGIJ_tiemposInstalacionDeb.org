@@ -1,0 +1,31 @@
+#+TITLE: Instalación de Debian
+#+AUTHOR: Nieto Gallegos Isaac Julián
+#+OPTIONS: toc:|2
+#+PROPERTY: header-args :exports both
+#+PROPERTY: header-args :eval no
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [11pt, letterpaper]
+#+LATEX_HEADER: \usepackage[margin=2.5cm]{geometry}      % Márgenes decentes
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{palatino}                   % Tipografía elegante
+#+LATEX_HEADER: \usepackage{xcolor}                     % Colores personalizados
+#+LATEX_HEADER: \usepackage{listings}
+
+* Objetivos
+
+Instalar la distribución de Linux elegida. En este caso, Debian.
+
+* Instalación de Debian
+
+La instalación de Debian es bastante sencilla, sólo hay que seguir los pasos indicados por el asistente.
+
+El tipo de instalación elegido fue el especificado durante todo el curso: mínimo, sin interfaz gráfica y con servidor SSH habilitado.
+
+El tiempo de instalación final hasta el reinicio fue: *22:17 minutos*
+
+* Sistema instalado
+
+La versión de Debian instalada fue la más básica posible, con nada más que los paquetes por default, sin entorno gráfico ni ningún adicional, excepto por el servidor SSH.
+
+El tiempo de arranque de esta instalación es de *23.6 segundos*, medidos desde el primer fotograma de la pantalla inicial de la UEFI. Si medimos el tiempo considerando solamente desde que el hardware le pasa el control a la partición de arranque del sistema, esto nos da *20.71 segundos*
+

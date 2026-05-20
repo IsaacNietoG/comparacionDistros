@@ -1,0 +1,97 @@
+% Created 2026-05-14 Thu 21:12
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt, letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[margin=2.5cm]{geometry}      % Márgenes decentes
+\usepackage[utf8]{inputenc}
+\usepackage{palatino}                   % Tipografía elegante
+\usepackage{xcolor}                     % Colores personalizados
+\usepackage{listings}
+\author{Nieto Gallegos Isaac Julián}
+\date{\today}
+\title{Instalación de Alpine Linux}
+\hypersetup{
+ pdfauthor={Nieto Gallegos Isaac Julián},
+ pdftitle={Instalación de Alpine Linux},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Objetivos}
+\label{sec:org47e3e54}
+
+Instalar la distribución de Linux elegida. En este caso, Alpine Linux.
+\section{Montaje del sistema raíz}
+\label{sec:org4b14959}
+
+\textbf{hasta este punto llevo 13:50 min de la run oficial :p}
+
+El mecanismo de instalación de Alpine Linux está constituido por dos scripts alternativa:
+
+\begin{itemize}
+\item setup-alpine, el cual puede ser aplicado sobre un disco duro entero y realizará la instalación automáticamente, según las especificaciones dadas por el usuario a través de variables de entorno y preguntas interactivas del mismo script.
+
+\item setup-disk, el cual es aplicado sobre un arbol de archivos ya montado en \textbf{/mnt}. Sobre este sistema se detectan las particiones utilizadas y se realiza la instalación sobre estas mismas.
+\end{itemize}
+
+Para nuestro caso de uso, el segundo script será el usado. Por lo que lo primero que debemos de hacer es crear el arbol raíz en /mnt.
+
+Montamos nuestra partición raíz sobre /mnt con:
+
+\begin{verbatim}
+mount -t ext4 <particion> /mnt
+\end{verbatim}
+
+Luego, dentro de este, creamos la carpeta /boot con:
+
+\begin{verbatim}
+mkdir -p /mnt/boot/efi
+mount -t vfat <particion> /mnt/boot/efi
+\end{verbatim}
+
+Y finalmente, cargamos la partición swap con:
+
+\begin{verbatim}
+swapon <particion>
+\end{verbatim}
+
+Una vez hecho esto, tenemos preparado el arbol de archivos sobre el que se instalará el sistema operativo.
+\section{Instalación de Alpine Linux}
+\label{sec:org4704938}
+
+Instalamos los siguientes paquetes por si acaso:
+
+\begin{verbatim}
+apk add grub-efi efibootmgr
+\end{verbatim}
+
+Corremos el comando:
+
+\begin{verbatim}
+setup-disk -m sys /mnt
+\end{verbatim}
+
+Por si acaso, al finalizar corremos los siguiente comandos para registrar la entrada de arranque:
+
+\begin{verbatim}
+chroot /mnt /bin/sh
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=alpine
+grub-mkconfig -o /boot/grub/grub.cfg
+\end{verbatim}
+\end{document}

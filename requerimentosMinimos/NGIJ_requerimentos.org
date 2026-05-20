@@ -1,0 +1,117 @@
+#+TITLE: Preparación para instalaciones - Alpine
+#+AUTHOR: Nieto Gallegos Isaac Julián
+#+OPTIONS: toc:|2
+#+PROPERTY: header-args :exports both
+#+PROPERTY: header-args :eval no
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [11pt, letterpaper]
+#+LATEX_HEADER: \usepackage[margin=2.5cm]{geometry}      % Márgenes decentes
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{palatino}                   % Tipografía elegante
+#+LATEX_HEADER: \usepackage{xcolor}                     % Colores personalizados
+#+LATEX_HEADER: \usepackage{listings}
+
+* Objetivos
+Preparar el equipo y los medios necesarios para la instalación nativa de la distribución elegida. En este caso, Alpine Linux
+
+* Despejar espacio para la instalación
+
+La instalación en bare metal de la distribución elegida se realizará sobre un equipo de cómputo del Laboratorio De Sistemas Operativos de la facultad.
+
+Estos equipos tienen los siguientes medios de almacenamiento:
+
+- Un disco NVME. Marcado como /dev/nvme0n1
+- Un disco de estado sólido. Marcado como /dev/sda
+
+Al disco NVME no hay que tocar nada. Debemos reducir alguna de las particiones ya existentes en el disco de estado sólido para realizar nuestra instalación.
+
+En mi caso concreto, reduje /dev/sda8 para obtener 160GB de espacio disponibles.
+
+[[./1.jpg]]
+
+* Conexión a internet
+
+Alpine Linux viene con una instalación muy mínima por default. Por esto, vamos a necesitar descargar más herramientas de Internet. Evidentemente para esto, necesitamos conectarnos a internet.
+
+Para esto, ejecutaremos un script integrado en Alpine llamado *setup-interfaces*. Ya que necesitamos conectarnos por Ethernet, las opciones por default nos resultan suficientes para esto.
+
+[[./2.jpg]]
+
+Una vez hecho esto, corremos:
+
+#+begin_src bash :eval never
+rc-service networking restart
+#+end_src
+
+Para cargar las configuraciones.
+
+Una vez hecho esto, configuramos la lista de repositorios remotos de la cual nuestro sistema Live obtendrá los paquetes. Esto lo hacemos con:
+
+#+begin_src bash :eval never
+setup-apkrepos
+#+end_src
+
+Hecho esto, podemos comenzar a trabajar.
+
+* Creación de las particiones necesarias
+
+Alpine Linux, al igual que distribuciones dedicadas a correr en ambientes reducidos como Arch Linux no tiene un programa de instalación con interfaz gráfica. En su lugar, su imágen de instalación en realidad es una Live USB que carga el sistema en memoria y desde ahí nos permite tanto trabajar como instalarlo en un disco duro.
+
+En esta live USB existen dos scripts dedicados a la instalación del sistema:
+
+- setup-alpine
+- setup-disk
+
+El primer script es un asistente de instalación interactivo (TUI) que nos irá haciendo preguntas para instalar Alpine. El problema de este script es que espera un disco completo para realizar su instalación, ya que realiza el particionado automáticamente.
+
+Entonces, usaremos el segundo script. El cual espera un sistema raíz ya montado y preparado en */mnt/* para funcionar.
+
+Vamos a preparar tres particiones: la partición raíz, la partición swap y la partición */boot*, esta última preparada para arranque en UEFI, que es el arranque para el que están preparadas las computadoras de este laboratorio.
+
+Repartiendo 64GB de almacenamiento entre estas particiones, asignamos los siguientes tamaños:
+
+|-----------+-----------------|
+| Particion | Tamaño asignado |
+|-----------+-----------------|
+| Boot      | 1GB             |
+|-----------+-----------------|
+| Root      | 59GB            |
+|-----------+-----------------|
+| Swap      | 4GB             |
+|-----------+-----------------|
+
+** Preparación
+
+Alpine Linux viene solamente con la versión de busybox de fdisk. Esta versión no nos resulta útil, ya que solo nos permite trabajar con tablas MBR. Instalaremos cfdisk con:
+
+#+begin_src bash :eval never
+apk add cfdisk
+#+end_src
+
+** Particiones
+
+Secuencialmente vamos construyendo las particiones en el tamaño y formatos necesarios con la herramienta cfdisk. Esta herramienta resulta bastante intuitiva. Al final, nos queda la siguiente estructura:
+
+[[./3.jpg]]
+
+** Sistemas de archivos
+
+Una vez creadas las particiones, creamos los sistemas de archivos según lo siguiente:
+
+- Necesitamos que la partición boot sea de tipo FAT
+- La partición raíz debe ser de tipo ext4
+- La partición swap de tipo swap
+
+Corriendo los siguientes comandos para hacer el sistema de archivos:
+
+[[./4.png]]
+
+Error: el comando correcto para la partición de boot es:
+
+#+begin_src bash
+mkfs.vfat -F32 <particion>
+#+end_src
+
+Con esto, finalizamos la preparación de las particiones y los sistemas de archivos correspondientes. Por ende, la preparación para instalar el sistema Alpine Linux.
+
+

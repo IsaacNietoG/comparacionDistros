@@ -1,0 +1,39 @@
+#+TITLE: Preparación para instalaciones - Debian
+#+AUTHOR: Nieto Gallegos Isaac Julián
+#+OPTIONS: toc:|2
+#+PROPERTY: header-args :exports both
+#+PROPERTY: header-args :eval no
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [11pt, letterpaper]
+#+LATEX_HEADER: \usepackage[margin=2.5cm]{geometry}      % Márgenes decentes
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{palatino}                   % Tipografía elegante
+#+LATEX_HEADER: \usepackage{xcolor}                     % Colores personalizados
+#+LATEX_HEADER: \usepackage{listings}
+
+* Objetivos
+Preparar el equipo y los medios necesarios para la instalación nativa de la distribución elegida. En este caso, Debian
+
+* Despejar espacio para la instalación
+
+Al disco NVME no hay que tocar nada. Debemos reducir alguna de las particiones ya existentes en el disco de estado sólido para realizar nuestra instalación.
+
+En mi caso concreto, reduje /dev/sda8 para obtener 160GB de espacio disponibles. De los cuales 64GB los usé previamente para instalar Alpine Linux, el resto de este espacio despejado queda disponible para hacer las particiones en el instalador de Debian
+
+[[./1.jpg]]
+
+* Creación de las particiones necesarias
+
+Debian tiene un asistente bastante funcional para crear las particiones deseadas en el sistema. Sobre este asistente, construyo las siguientes particiones de los siguientes tamaños
+
+|-----------+-----------------|
+| Particion | Tamaño asignado |
+|-----------+-----------------|
+| Boot      | 1GB             |
+|-----------+-----------------|
+| Root      | 29GB            |
+|-----------+-----------------|
+| Swap      | 2GB             |
+|-----------+-----------------|
+
+Con esto, podemos proceder a la instalación.
