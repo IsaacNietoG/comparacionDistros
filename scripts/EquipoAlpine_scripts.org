@@ -79,9 +79,33 @@ El comando para revisar la versión del kernel es el mismo. Aquí podemos observ
 
 Reinciamos la máquina para acceder al menú de GRUB. Las capturas de este procedimiento serán con cámara porque el reinicio será en el bare metal.
 
+*inserta imagen wei*
+
+Y agregamos la linea correspondiente, al hacer esto y presionar F10 podemos entrar a la sesión como root.
+
+*inserta imagen wei*
+
+El problema es que el sistema de archivos fue montado en modo sólo lectura, así que tenemos que correr el comando ~mount -o remount,rw /~ para que el comando passwd pueda funcionar correctamente. Una vez hecho esto, observamos que podemos modificar la contraseña sin problemas. En esta distribución no necesitamos hacer los pasos relacionados a SELinux, porque Alpine no tiene instalada esta utilidad.
+
+*inserta imagen wei*
+
+Reiniciamos e iniciamos sesión con la nueva contraseña, veremos que funcionó.
+
+*inserta imagen wei*
+
+** Práctica 3
+
+*** Script para creación de usuarios masiva
+
+Este script es muy parecido al utilizado en [[Cuentas de usuario]] para crear cuentas. Excepto que este recibe como entrada un archivo con líneas del tipo:
+
+#+begin_quote
+Nombre Apellido1 Apellido2 ; Contraseña
+#+end_quote
 
 
+** 
 
 * Debian
 
-* Red Hat Enterprise Linux
+*Lo de RHEL y FEDORA está en el LaTeX de mari*

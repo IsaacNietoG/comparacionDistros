@@ -1,0 +1,157 @@
+% Created 2026-05-22 Fri 14:11
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt, letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[margin=2.5cm]{geometry}      % Márgenes decentes
+\usepackage[utf8]{inputenc}
+\usepackage{palatino}                   % Tipografía elegante
+\usepackage{xcolor}                     % Colores personalizados
+\usepackage{listings}
+\author{Equipo Alpine White}
+\date{\today}
+\title{Comparación de Scripts en las distribuciones dadas.}
+\hypersetup{
+ pdfauthor={Equipo Alpine White},
+ pdftitle={Comparación de Scripts en las distribuciones dadas.},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Información General}
+\label{sec:org2f9cd22}
+\begin{itemize}
+\item \textbf{Equipo:}
+\begin{itemize}
+\item Arreguín Salgado Gael Emiliano
+\item López Pérez Mariana
+\item Nieto Gallegos Isaac Julián
+\end{itemize}
+
+\item \textbf{Distribución elegida:} Alpine Linux
+\end{itemize}
+\section{Alpine Linux}
+\label{sec:orgdcdec53}
+
+\subsection{ARP}
+\label{sec:orgc2dcf7c}
+
+Para usar este script primero necesitamos la herramienta ARP, la cual no viene instalada por default. Esta está en los repositorios de la comunidad, entonces de hecho primero hay que habilitar estos en /etc/apk/repositories.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./1.png}
+\end{center}
+
+Luego corremos un apk update e instalamos el paquete arp-scan, vemos cómo con esto funciona correctamente. Solo necesitamos también cambiar la ruta, la cual ahora será /sbin/arp.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./2.png}
+\end{center}
+
+Con esto, el script funciona correctamente en Alpine Linux
+\subsection{Cuentas de usuario}
+\label{sec:orgc75f747}
+
+Si corremos este comando a ciegas, nos toparemos con el siguiente error:
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./3.png}
+\end{center}
+
+Esto ocurre porque Alpine Linux, al utilizar Busybox para funcionar, omite varias utilidades que en otros sistemas podríamos considerar esenciales. Una de estas es directamente groupadd.
+
+Para solucionar esto tenemos dos opciones: trabajar con la alternativa proporcionada por Busybox para realizar esta acción (addgroup), o instalar groupadd. Para no enfrentarnos con problemas respecto a la sintaxis esperada por el comando alternativo, decidimos decantarnos por la segunda opción.
+
+El comando groupadd está incluído dentro del paquete \texttt{shadow}, el cual podemos instalar con apk.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./4.png}
+\end{center}
+
+Hecho esto, observamos que el comando funciona de manera adecuada.
+\subsection{Conexiones SSH}
+\label{sec:orgc7909f8}
+
+Este script no lo podríamos probar de la manera correcta, ya que sería necesario que las máquinas a las que nos conectamos sigan existiendo. Pero podemos correr el comando y ver si retorna algún error que sea ajeno a esta condición desafortunada.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./5.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./6.png}
+\end{center}
+
+Funciona correctamente, principalmente porque sólo usa un comando: ssh. El resto es sintaxis de bash.
+\subsection{Práctica 1}
+\label{sec:orga26de89}
+
+Esta práctica consistía en editar los repositorios en el sistema RHEL para que su gestor de paquetes (dnf) pudiera funcionar.
+
+En el caso de Alpine Linux, su equivalente es apk. Al igual que dnf, tiene una lista de repositorios editable, la cual podemos modificar en \texttt{/etc/apk/repositories}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./7.png}
+\end{center}
+\subsection{Práctica 2}
+\label{sec:org78dd90f}
+
+\subsubsection{Revisión de Kernel}
+\label{sec:org801a7bd}
+
+El comando para revisar la versión del kernel es el mismo. Aquí podemos observar que Alpine Linux utiliza el kernel 6.18.23 en su versión LTS (Long Term Support)
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./8.png}
+\end{center}
+\subsubsection{Cambio de password}
+\label{sec:org251d9f9}
+
+Reinciamos la máquina para acceder al menú de GRUB. Las capturas de este procedimiento serán con cámara porque el reinicio será en el bare metal.
+
+\textbf{inserta imagen wei}
+
+Y agregamos la linea correspondiente, al hacer esto y presionar F10 podemos entrar a la sesión como root.
+
+\textbf{inserta imagen wei}
+
+El problema es que el sistema de archivos fue montado en modo sólo lectura, así que tenemos que correr el comando \texttt{mount -o remount,rw /} para que el comando passwd pueda funcionar correctamente. Una vez hecho esto, observamos que podemos modificar la contraseña sin problemas. En esta distribución no necesitamos hacer los pasos relacionados a SELinux, porque Alpine no tiene instalada esta utilidad.
+
+\textbf{inserta imagen wei}
+
+Reiniciamos e iniciamos sesión con la nueva contraseña, veremos que funcionó.
+
+\textbf{inserta imagen wei}
+\subsection{Práctica 3}
+\label{sec:org3e6faf9}
+
+\subsubsection{Script para creación de usuarios masiva}
+\label{sec:org7af23ae}
+
+Este script es muy parecido al utilizado en \ref{sec:orgc75f747} para crear cuentas. Excepto que este recibe como entrada un archivo con líneas del tipo:
+
+\begin{quote}
+Nombre Apellido1 Apellido2 ; Contraseña
+\end{quote}
+\subsection{}
+\label{sec:orge82c872}
+\section{Debian}
+\label{sec:org5e963e0}
+
+\textbf{Lo de RHEL y FEDORA está en el \LaTeX{} de mari}
+\end{document}
