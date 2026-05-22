@@ -1,7 +1,26 @@
-% Created 2026-05-20 Wed 15:06
+% Created 2026-05-22 Fri 15:03
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,mexico]{babel}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+\usepackage[shortlabels]{enumitem}
+\usepackage{float}
+\usepackage{multicol}
 
+\pagestyle{fancy}
+\fancyhf{}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{subfiles}
+\usepackage{circuitikz} 
+\thispagestyle{empty}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -14,42 +33,37 @@
 \usepackage{capt-of}
 \usepackage{hyperref}
 \usepackage[margin=2.5cm]{geometry}      % Márgenes decentes
-\usepackage[utf8]{inputenc}
 \usepackage{palatino}                   % Tipografía elegante
 \usepackage{xcolor}                     % Colores personalizados
-\author{Equipo Alpine White}
+\author{
+\textbf{Equipo Alpine White} \\[0.5em]
+Arreguín Salgado Gael Emiliano \\
+López Pérez Mariana \\
+Nieto Gallegos Isaac Julián\\
+\textbf{Distribución elegida:} Alpine Linux
+}
 \date{\textit{{[}2026-04-20 Mon]}}
+
 \title{Tiempos de instalación de las distribuciones dadas.}
 \hypersetup{
  pdfauthor={Equipo Alpine White},
  pdftitle={Tiempos de instalación de las distribuciones dadas.},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.39)}, 
  pdflang={English}}
 \begin{document}
 
 \maketitle
-\setcounter{tocdepth}{2}
+
 \tableofcontents
 
-\section{Información General}
-\label{sec:org8237780}
-\begin{itemize}
-\item \textbf{Equipo:}
-\begin{itemize}
-\item Arreguín Salgado Gael Emiliano
-\item López Pérez Mariana
-\item Nieto Gallegos Isaac Julián
-\end{itemize}
-
-\item \textbf{Distribución elegida:} Alpine Linux
-\end{itemize}
+\newpage
 \section{Alpine Linux}
-\label{sec:org6a2f7f8}
+\label{sec:org07e84c6}
 
 \subsection{Montaje del sistema raíz}
-\label{sec:org27947f3}
+\label{sec:org48f8db4}
 
 El mecanismo de instalación de Alpine Linux está constituido por dos scripts alternativa:
 
@@ -59,7 +73,7 @@ El mecanismo de instalación de Alpine Linux está constituido por dos scripts a
 \item setup-disk, el cual es aplicado sobre un arbol de archivos ya montado en \textbf{/mnt}. Sobre este sistema se detectan las particiones utilizadas y se realiza la instalación sobre estas mismas.
 \end{itemize}
 
-Para nuestro caso de uso, el segundo script será el usado. Por lo que lo primero que debemos de hacer es crear el arbol raíz en /mnt.
+Para nuestro caso de uso, el segundo script será el usado. Por lo que lo primero q que debemos de hacer es crear el arbol raíz en /mnt.
 
 Montamos nuestra partición raíz sobre /mnt con:
 
@@ -82,7 +96,7 @@ swapon <particion>
 
 Una vez hecho esto, tenemos preparado el arbol de archivos sobre el que se instalará el sistema operativo.
 \subsection{Instalación de Alpine Linux}
-\label{sec:org0f71e8f}
+\label{sec:org2038ce6}
 
 Instalamos los siguientes paquetes por si acaso:
 
@@ -100,16 +114,16 @@ Al finalizar, reiniciamos y elegimos la nueva entrada en nuestro sistema UEFI. E
 
 El tiempo de instalación final hasta el reinicio fue: \textbf{18:57 minutos}
 \subsection{Sistema instalado}
-\label{sec:orgff3af6e}
+\label{sec:orge3948ff}
 
 La versión de Alpine Linux instalada fue la más básica posible, con nada más que los paquetes por default, sin entorno gráfico ni ningún adicional.
 
 El tiempo de arranque de esta instalación es de \textbf{26.79 segundos}, medidos desde el primer fotograma de la pantalla inicial de la UEFI. Si medimos el tiempo considerando solamente desde que el hardware le pasa el control a la partición de arranque del sistema, esto nos da \textbf{21.12 segundos}
 \section{Debian}
-\label{sec:orgd61e787}
+\label{sec:org95e246a}
 
 \subsection{Instalación de Debian}
-\label{sec:orgdd78bd5}
+\label{sec:orgeacf485}
 
 La instalación de Debian es bastante sencilla, sólo hay que seguir los pasos indicados por el asistente.
 
@@ -117,17 +131,116 @@ El tipo de instalación elegido fue el especificado durante todo el curso: míni
 
 El tiempo de instalación final hasta el reinicio fue: \textbf{22:17 minutos}
 \subsection{Sistema instalado}
-\label{sec:org30f09d8}
+\label{sec:org4350345}
 
 La versión de Debian instalada fue la más básica posible, con nada más que los paquetes por default, sin entorno gráfico ni ningún adicional, excepto por el servidor SSH.
 
 El tiempo de arranque de esta instalación es de \textbf{23.6 segundos}, medidos desde el primer fotograma de la pantalla inicial de la UEFI. Si medimos el tiempo considerando solamente desde que el hardware le pasa el control a la partición de arranque del sistema, esto nos da \textbf{20.71 segundos}
+
 \section{Red Hat Enterprise Linux}
-\label{sec:org0e4177c}
+\label{sec:org0c08d7e}
 
-Vas mari
+\subsection{Instalación de Red Hat Enterprise Linux}
+
+La instalación de Red Hat Enterprise Linux (RHEL) se realizó utilizando una memoria USB booteable configurada con Ventoy, lo que permitió seleccionar la imagen ISO directamente desde el menú de arranque sin necesidad de formatear nuevamente la memoria.
+
+\subsection{Instalación}
+El proceso de instalación se realizó mediante el asistente gráfico de Anaconda, el cual facilita la configuración del sistema operativo mediante una interfaz visual e intuitiva, permitiendo que durante la instalación se configuraron aspectos como el idioma del sistema, distribución del teclado, zona horaria, almacenamiento y creación de usuarios.
+
+La instalación fue con entorno gráfico, utilizando GNOME como escritorio principal, permitiendo así una experiencia de usuario más amigable, asi como tambien se configuro la conexión de red y los servicios básicos necesarios para el funcionamiento del sistema.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/configuracion.jpeg}
+    \caption{Configuración de la instación.}
+\end{figure}
+
+El tiempo total de instalación, considerando desde el arranque desde Ventoy hasta el primer inicio de sesión del sistema ya instalado, fue de aproximadamente \textbf{20 minutos}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/proceso-inst.jpeg}
+    \caption{En proceso de instalación.}
+\end{figure}
+\subsection{Sistema instalado}
+
+El espacio utilizado después de la instalación base fue aproximadamente de \textbf{9 GB}, considerando únicamente los paquetes instalados por defecto.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/instalacion-completa.jpeg}
+    \caption{Instalación terminada}
+\end{figure}
+
+El tiempo de arranque del sistema fue de aproximadamente \textbf{32.98 segundos}, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/inicio.jpeg}
+    \caption{Inicio de sesión}
+\end{figure}
+
 \section{Fedora}
-\label{sec:orga982910}
+\label{sec:orga68a3e5}
 
-Vas mari x2
+\subsection{Administración y ampliación de almacenamiento}
+
+En el caso de Fedora Workstation, el sistema operativo ya se encontraba instalado previamente en el equipo con una partición de menor tamaño, por ello solo fue necesario realizar una ampliación del espacio hasta alcanzar \textbf{64 GB} disponible para cumplir con los requerimientos de almacenamiento solicitados en la práctica.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/mnt.jpeg}
+    \caption{Ampliación de espacio.}
+\end{figure}
+Para ello, primero se identificaron las particiones existentes dentro del disco duro utilizando la herramienta gráfica \textbf{Disks} de GNOME, la cual permite visualizar de forma más clara la distribución del almacenamiento y las particiones disponibles.
+
+La partición correspondiente al sistema Fedora era \textbf{/dev/sda6}, configurada con el sistema de archivos \textbf{Btrfs} y un tamaño inicial de \textbf{64 GB}. Posteriormente, se liberó espacio disponible dentro del disco principal para asignarlo al sistema operativo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/particion1T.jpeg}
+    \caption{Administración de particiones y redimensionamiento del volumen en Fedora.}
+\end{figure}
+
+En la imagen anterior puede observarse el proceso de redimensionamiento de la partición, donde se asignó espacio libre adicional al volumen utilizado por Fedora.
+
+Posteriormente, se realizaron pruebas de montaje manual desde la terminal para verificar las particiones disponibles y comprobar el acceso a los sistemas de archivos.
+
+El comando utilizado fue:
+
+\begin{verbatim}
+sudo mount /dev/sda4 /mnt2
+\end{verbatim}
+
+Este comando intenta montar la partición \textbf{/dev/sda4} sobre el directorio \textbf{/mnt2}. Sin embargo, el sistema devolvió un error debido a que dicha partición no correspondía a un sistema de archivos compatible o válido para el montaje esperado.
+
+Después de identificar correctamente la partición del sistema Fedora, se utilizó:
+
+\begin{verbatim}
+sudo mount /dev/sda6 /mnt2
+\end{verbatim}
+
+Con este comando se montó correctamente la partición principal de Fedora en el directorio temporal \textbf{/mnt2}, permitiendo acceder a los archivos internos del sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{tiempo-de-ejecución/img/terminal.jpeg}
+    \caption{Montaje manual de particiones y verificación del sistema de archivos en Fedora.}
+\end{figure}
+
+Una vez montada la partición, se utilizó el comando:
+
+\begin{verbatim}
+ls -la
+\end{verbatim}
+
+para listar los archivos y directorios ocultos presentes dentro del sistema montado. Esto permitió verificar la existencia de directorios importantes como \textbf{home00} y \textbf{root00}.
+
+Posteriormente, se ejecutó:
+
+\begin{verbatim}
+cat root00/etc/passwd
+\end{verbatim}
+
+con el objetivo de visualizar el contenido del archivo \textbf{/etc/passwd}, el cual almacena la información básica de los usuarios registrados dentro del sistema Linux. Esto permitió comprobar correctamente la estructura interna del sistema Fedora montado.
+
+
+El espacio utilizado por la instalación base de Fedora Workstation fue aproximadamente de \textbf{18 GB}, considerando el entorno gráfico y las aplicaciones preinstaladas.
+
+El tiempo de inicio del sistema fue de aproximadamente \textbf{27 segundos}, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
 \end{document}
