@@ -103,8 +103,43 @@ Este script es muy parecido al utilizado en [[Cuentas de usuario]] para crear cu
 Nombre Apellido1 Apellido2 ; Contraseña
 #+end_quote
 
+Si lo corremos, funciona sin problemas:
 
-** 
+[[./8.png]]
+
+*** Archivos de administración de usuarios
+
+En todas las distribuciones Linux los archivos ~/etc/passwd, /etc/shadow, /etc/group, /etc/login.defs~ funcionan para lo mismo. Entonces, esto no cambia.
+
+*** Creación de cuentas de usuario y directorio compartido
+
+Usamos las cuentas del ejercicio anterior y creamos el directorio compartido. Copiamos todos los comandos utillizados en la práctica original sin realizar ningún cambio. Efectivamente todos funcionaron y rindieron el resultado final esperado.
+
+[[./9.png]]
+
+** Practica 4
+
+*** Uso de telnet
+
+Para configurar un servidor telnet en Alpine, necesitamos el paquete ~busybox-extras~. Una vez instalado, es tan fácil como correr el comando ~telnetd~.
+
+[[./11.png]]
+
+Para verificar, nos conectamos desde mi máquina personal.
+
+[[./10.png]]
+
+*** SSH
+
+El servicio SSH que existe en Alpine es la implementación de GNU, por lo que el archivo de configuración funciona idéntico a lo especificado por esta práctica. Podemos realizar todas las pruebas necesarias y funcionaría sin problemas.
+
+De hecho, actualmente estoy corriendo este servicio con el root login habilitado para conectarme remotamente desde mi ordenador.
+
+[[./12.png]]
+
+Y el archivo de configuración:
+
+[[./13.png]]
 
 * Debian
 
