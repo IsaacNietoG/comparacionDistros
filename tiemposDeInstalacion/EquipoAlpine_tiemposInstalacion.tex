@@ -142,105 +142,34 @@ El tiempo de arranque de esta instalación es de \textbf{23.6 segundos}, medidos
 
 \subsection{Instalación de Red Hat Enterprise Linux}
 
-La instalación de Red Hat Enterprise Linux (RHEL) se realizó utilizando una memoria USB booteable configurada con Ventoy, lo que permitió seleccionar la imagen ISO directamente desde el menú de arranque sin necesidad de formatear nuevamente la memoria.
+La instalación de Red Hat Enterprise Linux se realizó mediante una memoria USB booteable utilizando Ventoy para cargar la imagen ISO del sistema.
 
-\subsection{Instalación}
-El proceso de instalación se realizó mediante el asistente gráfico de Anaconda, el cual facilita la configuración del sistema operativo mediante una interfaz visual e intuitiva, permitiendo que durante la instalación se configuraron aspectos como el idioma del sistema, distribución del teclado, zona horaria, almacenamiento y creación de usuarios.
+El proceso de instalación se llevó a cabo con el asistente gráfico Anaconda, el cual permitió configurar de forma sencilla aspectos como idioma, distribución del teclado, zona horaria, almacenamiento y creación de usuarios.
 
-La instalación fue con entorno gráfico, utilizando GNOME como escritorio principal, permitiendo así una experiencia de usuario más amigable, asi como tambien se configuro la conexión de red y los servicios básicos necesarios para el funcionamiento del sistema.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/configuracion.jpeg}
-    \caption{Configuración de la instación.}
-\end{figure}
+La instalación se realizó con entorno gráfico GNOME y con los servicios básicos de red habilitados para el funcionamiento del sistema.
 
-El tiempo total de instalación, considerando desde el arranque desde Ventoy hasta el primer inicio de sesión del sistema ya instalado, fue de aproximadamente \textbf{20 minutos}.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/proceso-inst.jpeg}
-    \caption{En proceso de instalación.}
-\end{figure}
+El tiempo total de instalación hasta el primer inicio de sesión fue de aproximadamente \textbf{20 minutos}.
+
 \subsection{Sistema instalado}
 
-El espacio utilizado después de la instalación base fue aproximadamente de \textbf{9 GB}, considerando únicamente los paquetes instalados por defecto.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/instalacion-completa.jpeg}
-    \caption{Instalación terminada}
-\end{figure}
+La instalación base de Red Hat Enterprise Linux ocupó aproximadamente \textbf{9 GB} de almacenamiento, considerando únicamente los paquetes instalados por defecto.
 
 El tiempo de arranque del sistema fue de aproximadamente \textbf{32.98 segundos}, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/inicio.jpeg}
-    \caption{Inicio de sesión}
-\end{figure}
 
 \section{Fedora}
 \label{sec:orga68a3e5}
 
 \subsection{Administración y ampliación de almacenamiento}
 
-En el caso de Fedora Workstation, el sistema operativo ya se encontraba instalado previamente en el equipo con una partición de menor tamaño, por ello solo fue necesario realizar una ampliación del espacio hasta alcanzar \textbf{64 GB} disponible para cumplir con los requerimientos de almacenamiento solicitados en la práctica.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/mnt.jpeg}
-    \caption{Ampliación de espacio.}
-\end{figure}
-Para ello, primero se identificaron las particiones existentes dentro del disco duro utilizando la herramienta gráfica \textbf{Disks} de GNOME, la cual permite visualizar de forma más clara la distribución del almacenamiento y las particiones disponibles.
+En Fedora Workstation el sistema operativo ya se encontraba previamente instalado, por lo que únicamente fue necesario ampliar el espacio disponible de la partición principal hasta alcanzar \textbf{64 GB}.
 
-La partición correspondiente al sistema Fedora era \textbf{/dev/sda6}, configurada con el sistema de archivos \textbf{Btrfs} y un tamaño inicial de \textbf{64 GB}. Posteriormente, se liberó espacio disponible dentro del disco principal para asignarlo al sistema operativo.
+Para ello, se identificaron las particiones existentes utilizando la herramienta gráfica \textbf{Disks} de GNOME y posteriormente se redimensionó la partición correspondiente al sistema Fedora, ubicada en \textbf{/dev/sda6} y configurada con el sistema de archivos \textbf{Btrfs}.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.55\textwidth]{tiempo-de-ejecución/img/particion1T.jpeg}
-    \caption{Administración de particiones y redimensionamiento del volumen en Fedora.}
-\end{figure}
+Después del redimensionamiento, se realizaron pruebas de montaje manual desde la terminal para verificar el acceso correcto al sistema de archivos y comprobar la estructura interna del sistema.
 
-En la imagen anterior puede observarse el proceso de redimensionamiento de la partición, donde se asignó espacio libre adicional al volumen utilizado por Fedora.
+\subsection{Sistema instalado}
 
-Posteriormente, se realizaron pruebas de montaje manual desde la terminal para verificar las particiones disponibles y comprobar el acceso a los sistemas de archivos.
-
-El comando utilizado fue:
-
-\begin{verbatim}
-sudo mount /dev/sda4 /mnt2
-\end{verbatim}
-
-Este comando intenta montar la partición \textbf{/dev/sda4} sobre el directorio \textbf{/mnt2}. Sin embargo, el sistema devolvió un error debido a que dicha partición no correspondía a un sistema de archivos compatible o válido para el montaje esperado.
-
-Después de identificar correctamente la partición del sistema Fedora, se utilizó:
-
-\begin{verbatim}
-sudo mount /dev/sda6 /mnt2
-\end{verbatim}
-
-Con este comando se montó correctamente la partición principal de Fedora en el directorio temporal \textbf{/mnt2}, permitiendo acceder a los archivos internos del sistema.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.70\textwidth]{tiempo-de-ejecución/img/terminal.jpeg}
-    \caption{Montaje manual de particiones y verificación del sistema de archivos en Fedora.}
-\end{figure}
-
-Una vez montada la partición, se utilizó el comando:
-
-\begin{verbatim}
-ls -la
-\end{verbatim}
-
-para listar los archivos y directorios ocultos presentes dentro del sistema montado. Esto permitió verificar la existencia de directorios importantes como \textbf{home00} y \textbf{root00}.
-
-Posteriormente, se ejecutó:
-
-\begin{verbatim}
-cat root00/etc/passwd
-\end{verbatim}
-
-con el objetivo de visualizar el contenido del archivo \textbf{/etc/passwd}, el cual almacena la información básica de los usuarios registrados dentro del sistema Linux. Esto permitió comprobar correctamente la estructura interna del sistema Fedora montado.
-
-
-El espacio utilizado por la instalación base de Fedora Workstation fue aproximadamente de \textbf{18 GB}, considerando el entorno gráfico y las aplicaciones preinstaladas.
+La instalación base de Fedora Workstation utilizó aproximadamente \textbf{18 GB} de almacenamiento, considerando el entorno gráfico y las aplicaciones preinstaladas.
 
 El tiempo de inicio del sistema fue de aproximadamente \textbf{27 segundos}, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
 \end{document}

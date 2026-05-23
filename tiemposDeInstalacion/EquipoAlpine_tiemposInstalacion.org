@@ -93,99 +93,39 @@ La versión de Debian instalada fue la más básica posible, con nada más que l
 
 El tiempo de arranque de esta instalación es de *23.6 segundos*, medidos desde el primer fotograma de la pantalla inicial de la UEFI. Si medimos el tiempo considerando solamente desde que el hardware le pasa el control a la partición de arranque del sistema, esto nos da *20.71 segundos*
 
-* Red Hat Enterprise Linux
-:PROPERTIES:
-:CUSTOM_ID: sec-org0c08d7e
-:END:
+\section{Red Hat Enterprise Linux}
+\label{sec:org0c08d7e}
 
-** Instalación de Red Hat Enterprise Linux
+\subsection{Instalación de Red Hat Enterprise Linux}
 
-La instalación de Red Hat Enterprise Linux (RHEL) se realizó utilizando una memoria USB booteable configurada con Ventoy, lo que permitió seleccionar la imagen ISO directamente desde el menú de arranque sin necesidad de formatear nuevamente la memoria.
+La instalación de Red Hat Enterprise Linux se realizó mediante una memoria USB booteable utilizando Ventoy para cargar la imagen ISO del sistema.
 
-** Instalación
+El proceso de instalación se llevó a cabo con el asistente gráfico Anaconda, el cual permitió configurar de forma sencilla aspectos como idioma, distribución del teclado, zona horaria, almacenamiento y creación de usuarios.
 
-El proceso de instalación se realizó mediante el asistente gráfico de Anaconda, el cual facilita la configuración del sistema operativo mediante una interfaz visual e intuitiva, permitiendo configurar aspectos como el idioma del sistema, distribución del teclado, zona horaria, almacenamiento y creación de usuarios.
+La instalación se realizó con entorno gráfico GNOME y con los servicios básicos de red habilitados para el funcionamiento del sistema.
 
-La instalación fue realizada con entorno gráfico, utilizando GNOME como escritorio principal, permitiendo así una experiencia de usuario más amigable. Asimismo, se configuró la conexión de red y los servicios básicos necesarios para el funcionamiento del sistema.
+El tiempo total de instalación hasta el primer inicio de sesión fue de aproximadamente \textbf{20 minutos}.
 
-#+CAPTION: Configuración de la instalación.
-[[file:tiempo-de-ejecución/img/configuracion.jpeg]]
+\subsection{Sistema instalado}
 
-El tiempo total de instalación, considerando desde el arranque desde Ventoy hasta el primer inicio de sesión del sistema ya instalado, fue de aproximadamente *20 minutos*.
+La instalación base de Red Hat Enterprise Linux ocupó aproximadamente \textbf{9 GB} de almacenamiento, considerando únicamente los paquetes instalados por defecto.
 
-#+CAPTION: Proceso de instalación.
-[[file:tiempo-de-ejecución/img/proceso-inst.jpeg]]
+El tiempo de arranque del sistema fue de aproximadamente \textbf{32.98 segundos}, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
 
-** Sistema instalado
+\section{Fedora}
+\label{sec:orga68a3e5}
 
-El espacio utilizado después de la instalación base fue aproximadamente de *9 GB*, considerando únicamente los paquetes instalados por defecto.
+\subsection{Administración y ampliación de almacenamiento}
 
-#+CAPTION: Instalación terminada.
-[[file:tiempo-de-ejecución/img/instalacion-completa.jpeg]]
+En Fedora Workstation el sistema operativo ya se encontraba previamente instalado, por lo que únicamente fue necesario ampliar el espacio disponible de la partición principal hasta alcanzar \textbf{64 GB}.
 
-El tiempo de arranque del sistema fue de aproximadamente *32.98 segundos*, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
+Para ello, se identificaron las particiones existentes utilizando la herramienta gráfica \textbf{Disks} de GNOME y posteriormente se redimensionó la partición correspondiente al sistema Fedora, ubicada en \textbf{/dev/sda6} y configurada con el sistema de archivos \textbf{Btrfs}.
 
-#+CAPTION: Inicio de sesión.
-[[file:tiempo-de-ejecución/img/inicio.jpeg]]
+Después del redimensionamiento, se realizaron pruebas de montaje manual desde la terminal para verificar el acceso correcto al sistema de archivos y comprobar la estructura interna del sistema.
 
-* Fedora
-:PROPERTIES:
-:CUSTOM_ID: sec-orga68a3e5
-:END:
+\subsection{Sistema instalado}
 
-** Administración y ampliación de almacenamiento
+La instalación base de Fedora Workstation utilizó aproximadamente \textbf{18 GB} de almacenamiento, considerando el entorno gráfico y las aplicaciones preinstaladas.
 
-En el caso de Fedora Workstation, el sistema operativo ya se encontraba instalado previamente en el equipo con una partición de menor tamaño. Por ello, únicamente fue necesario realizar una ampliación del espacio hasta alcanzar *64 GB* disponibles para cumplir con los requerimientos de almacenamiento solicitados en la práctica.
-
-#+CAPTION: Ampliación de espacio.
-[[file:tiempo-de-ejecución/img/mnt.jpeg]]
-
-Para ello, primero se identificaron las particiones existentes dentro del disco duro utilizando la herramienta gráfica *Disks* de GNOME, la cual permite visualizar de forma más clara la distribución del almacenamiento y las particiones disponibles.
-
-La partición correspondiente al sistema Fedora era */dev/sda6*, configurada con el sistema de archivos *Btrfs* y un tamaño inicial de *64 GB*. Posteriormente, se liberó espacio disponible dentro del disco principal para asignarlo al sistema operativo.
-
-#+CAPTION: Administración de particiones y redimensionamiento del volumen en Fedora.
-[[file:tiempo-de-ejecución/img/particion1T.jpeg]]
-
-En la imagen anterior puede observarse el proceso de redimensionamiento de la partición, donde se asignó espacio libre adicional al volumen utilizado por Fedora.
-
-Posteriormente, se realizaron pruebas de montaje manual desde la terminal para verificar las particiones disponibles y comprobar el acceso a los sistemas de archivos.
-
-El comando utilizado fue:
-
-#+BEGIN_SRC bash
-sudo mount /dev/sda4 /mnt2
-#+END_SRC
-
-Este comando intenta montar la partición */dev/sda4* sobre el directorio */mnt2*. Sin embargo, el sistema devolvió un error debido a que dicha partición no correspondía a un sistema de archivos compatible o válido para el montaje esperado.
-
-Después de identificar correctamente la partición del sistema Fedora, se utilizó:
-
-#+BEGIN_SRC bash
-sudo mount /dev/sda6 /mnt2
-#+END_SRC
-
-Con este comando se montó correctamente la partición principal de Fedora en el directorio temporal */mnt2*, permitiendo acceder a los archivos internos del sistema.
-
-#+CAPTION: Montaje manual de particiones y verificación del sistema de archivos en Fedora.
-[[file:tiempo-de-ejecución/img/terminal.jpeg]]
-
-Una vez montada la partición, se utilizó el comando:
-
-#+BEGIN_SRC bash
-ls -la
-#+END_SRC
-
-para listar los archivos y directorios ocultos presentes dentro del sistema montado. Esto permitió verificar la existencia de directorios importantes como *home00* y *root00*.
-
-Posteriormente, se ejecutó:
-
-#+BEGIN_SRC bash
-cat root00/etc/passwd
-#+END_SRC
-
-con el objetivo de visualizar el contenido del archivo */etc/passwd*, el cual almacena la información básica de los usuarios registrados dentro del sistema Linux. Esto permitió comprobar correctamente la estructura interna del sistema Fedora montado.
-
-El espacio utilizado por la instalación base de Fedora Workstation fue aproximadamente de *18 GB*, considerando el entorno gráfico y las aplicaciones preinstaladas.
-
-El tiempo de inicio del sistema fue de aproximadamente *27 segundos*, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
+El tiempo de inicio del sistema fue de aproximadamente \textbf{27 segundos}, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
+\end{document}

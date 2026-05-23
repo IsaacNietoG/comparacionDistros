@@ -199,14 +199,245 @@ Swap & 2GB\\
 \end{center}
 
 Con esto, podemos proceder a la instalación.
-\section{Redhat Enterprise Linux}
+\section{Red Hat Enterprise Linux}
 \label{sec:orgb584fad}
 
-Vas mari
+\subsection{Despejar espacio para la instalación}
+\label{sec:orgredhatespacio}
+
+Para la instalación de Red Hat Enterprise Linux se utilizó el espacio libre previamente obtenido en el disco de estado sólido \textbf{/dev/sda}. Para esta distribución se asignaron \textbf{80GB} de almacenamiento, cumpliendo con los requerimientos solicitados en la práctica.
+
+\subsection{Instalación}
+\label{sec:orgredhatinstalacion}
+
+La instalación de Red Hat Enterprise Linux (RHEL) se realizó utilizando una memoria USB booteable configurada con Ventoy, lo que permitió seleccionar la imagen ISO directamente desde el menú de arranque sin necesidad de formatear nuevamente la memoria USB.
+
+El proceso de instalación se realizó mediante el asistente gráfico \textbf{Anaconda}, el cual permitió configurar aspectos como el idioma del sistema, distribución del teclado, zona horaria, almacenamiento y creación de usuarios.
+
+Durante la configuración del almacenamiento se asignó una partición principal destinada al sistema operativo junto con las particiones necesarias para el arranque y funcionamiento del sistema.
+
+La instalación fue realizada con entorno gráfico \textbf{GNOME}, permitiendo contar con una interfaz visual para la administración del sistema.
+
+\begin{center}
+\includegraphics[width=.75\linewidth]{requerimientos-minimos/img/configuracion.jpeg}
+\end{center}
+
+Posteriormente, comenzó el proceso de instalación y copia de archivos del sistema operativo.
+
+\begin{center}
+\includegraphics[width=.75\linewidth]{requerimientos-minimos/img/proceso-inst.jpeg}
+\end{center}
+
+\subsection{Sistema instalado}
+\label{sec:orgredhatsistema}
+
+El espacio utilizado después de la instalación base fue aproximadamente de \textbf{9GB}, considerando únicamente los paquetes instalados por defecto.
+
+La instalación quedó configurada con entorno gráfico GNOME y las particiones necesarias para el arranque del sistema operativo.
+
+\begin{center}
+\includegraphics[width=.75\linewidth]{requerimientos-minimos/img/instalacion-completa.jpeg}
+\end{center}
+
+\begin{center}
+\includegraphics[width=.75\linewidth]{requerimientos-minimos/img/inicio.jpeg}
+\end{center}
+
 \section{Fedora}
 \label{sec:org823ab2b}
 
-Vas mari x2
+\subsection{Despejar espacio para la instalación}
+\label{sec:orgfedoraespacio}
+
+En el caso de Fedora Workstation, el sistema operativo ya se encontraba instalado previamente en el equipo con una partición de menor tamaño. Por ello, fue necesario realizar una ampliación del espacio hasta alcanzar \textbf{64GB} disponibles para cumplir con los requerimientos de almacenamiento solicitados en la práctica.
+
+\begin{center}
+\includegraphics[width=.75\linewidth]{requerimientos-minimos/img/mnt.jpeg}
+\end{center}
+
+\subsection{Administración y ampliación de almacenamiento}
+\label{sec:orgfedoraalmacenamiento}
+
+Para identificar las particiones existentes dentro del disco duro se utilizó la herramienta gráfica \textbf{Disks} de GNOME, la cual permitió visualizar la distribución del almacenamiento y las particiones disponibles.
+
+La partición correspondiente al sistema Fedora era \textbf{/dev/sda6}, configurada utilizando el sistema de archivos \textbf{Btrfs}. Esta partición correspondía a la partición principal del sistema operativo.
+
+Posteriormente, se realizó el redimensionamiento de la partición para asignar espacio libre adicional al sistema operativo y alcanzar los \textbf{64GB} requeridos para la práctica.
+
+\begin{center}
+\includegraphics[width=.75\linewidth]{requerimientos-minimos/img/particion1T.jpeg}
+\end{center}
+
+En la imagen anterior puede observarse el proceso de administración de particiones y el espacio asignado al volumen principal de Fedora.
+
+\subsection{Verificación de particiones y sistema de archivos}
+\label{sec:orgfedoraverificacion}
+
+Posteriormente, se realizaron pruebas de montaje manual desde la terminal para verificar las particiones disponibles y comprobar el acceso al sistema de archivos.
+
+Inicialmente se ejecutó el siguiente comando:
+
+\begin{verbatim}
+sudo mount /dev/sda4 /mnt2
+\end{verbatim}
+
+Este comando intentó montar la partición \textbf{/dev/sda4} sobre el directorio \textbf{/mnt2}; sin embargo, el sistema devolvió un error debido a que dicha partición no correspondía a la partición principal utilizada por Fedora.
+
+Después de identificar correctamente la partición correspondiente al sistema operativo, se utilizó:
+
+\begin{verbatim}
+sudo mount /dev/sda6 /mnt2
+\end{verbatim}
+
+Con este comando se montó correctamente la partición principal de Fedora en el directorio temporal \textbf{/mnt2}, permitiendo verificar la estructura interna del sistema de archivos.
+
+\begin{center}
+\includegraphics[width=.75\linewidth]{requerimientos-minimos/img/terminal.jpeg}
+\end{center}
+
+Una vez montada la partición, se ejecutó:
+
+\begin{verbatim}
+ls -la
+\end{verbatim}
+
+para listar los directorios presentes dentro de la partición montada y comprobar el acceso correcto al sistema de archivos.
+
+Posteriormente, se utilizó:
+
+\begin{verbatim}
+cat root00/etc/passwd
+\end{verbatim}
+
+para verificar la existencia de archivos internos del sistema Linux dentro de la partición montada.
+
+\subsection{Sistema instalado}
+\label{sec:orgfedorasistema}
+
+El espacio utilizado por la instalación base de Fedora Workstation fue aproximadamente de \textbf{18GB}, considerando el entorno gráfico y las aplicaciones preinstaladas.
+
+La instalación quedó configurada utilizando el sistema de archivos \textbf{Btrfs} y una partición principal de \textbf{64GB} destinada al sistema operativo.
+
+
+
+\section{Cuadro comparativo}
+\label{sec:orgcomparativo}
+
+Todas las actividades descritas en este reporte fueron realizadas en las computadoras del Laboratorio de Sistemas Operativos, con el objetivo de mantener condiciones similares de hardware y permitir una comparación consistente entre las distribuciones utilizadas.
+
+\begin{center}
+\scriptsize
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3.1cm}|p{2.3cm}|p{2.3cm}|p{2.3cm}|p{2.3cm}|}
+\hline
+\textbf{Característica} &
+\textbf{Debian 12} &
+\textbf{Fedora Workstation 42} &
+\textbf{Red Hat Enterprise Linux 9} &
+\textbf{Alpine Linux 3.22} \\
+\hline
+
+Procesador mínimo &
+x86\_64 &
+x86\_64 &
+x86\_64 &
+x86\_64 \\
+\hline
+
+Memoria RAM mínima &
+2GB &
+4GB &
+2GB &
+512MB \\
+\hline
+
+Almacenamiento mínimo &
+10GB &
+20GB &
+10GB &
+1GB \\
+\hline
+
+Espacio asignado en práctica &
+32GB &
+64GB &
+80GB &
+64GB \\
+\hline
+
+Entorno gráfico utilizado &
+No instalado &
+GNOME &
+GNOME &
+No instalado \\
+\hline
+
+Esquema de versiones &
+Stable / Testing / Unstable &
+Lanzamientos semestrales &
+Versiones empresariales estables &
+Rolling release ligero \\
+\hline
+
+Calendario de liberación &
+Aprox. cada 2 años &
+Aprox. cada 6 meses &
+Soporte de largo plazo &
+Liberaciones frecuentes \\
+\hline
+
+Medios de instalación oficiales &
+NetInstall, DVD, Live &
+Workstation, Server, Spins &
+Server, Workstation &
+Standard, Extended, Virtual \\
+\hline
+
+Tamaño aproximado del medio de instalación &
+700MB -- 4GB &
+2GB -- 3GB &
+8GB -- 10GB &
+200MB -- 300MB \\
+\hline
+
+Mecanismo de instalación desatendida &
+Preseed &
+Kickstart &
+Kickstart &
+Scripts setup-alpine / setup-disk \\
+\hline
+
+Sistema de archivos utilizado en la práctica &
+ext4 &
+Btrfs &
+ext4 &
+ext4 \\
+\hline
+
+Tiempo de instalación &
+22:17 min &
+No se reinstaló &
+20 min &
+18:57 min \\
+\hline
+
+Tiempo de arranque &
+23.6 s &
+27 s &
+32.98 s &
+26.79 s \\
+\hline
+
+Espacio utilizado después de instalación &
+3GB -- 4GB &
+18GB &
+9GB &
+Instalación mínima \\
+\hline
+
+\end{tabular}
+\end{center}
+
 \section{Bibliografía}
 \label{sec:orga9011da}
 
