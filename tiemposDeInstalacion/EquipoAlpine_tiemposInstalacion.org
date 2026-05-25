@@ -1,0 +1,131 @@
+#+TITLE: Tiempos de instalación de las distribuciones dadas.
+#+AUTHOR: Equipo Alpine White
+#+DATE: [2026-04-20 lun]
+#+OPTIONS: toc:2
+#+PROPERTY: header-args :exports both :eval never
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [11pt, letterpaper]
+#+LATEX_HEADER: \usepackage[margin=2.5cm]{geometry}      % Márgenes decentes
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{palatino}                   % Tipografía elegante
+#+LATEX_HEADER: \usepackage{xcolor}                     % Colores personalizados
+
+
+* Información General
+- *Equipo:*
+  - Arreguín Salgado Gael Emiliano
+  - López Pérez Mariana
+  - Nieto Gallegos Isaac Julián
+
+- *Distribución elegida:* Alpine Linux
+
+
+* Alpine Linux
+
+** Montaje del sistema raíz
+
+El mecanismo de instalación de Alpine Linux está constituido por dos scripts alternativa:
+
+- setup-alpine, el cual puede ser aplicado sobre un disco duro entero y realizará la instalación automáticamente, según las especificaciones dadas por el usuario a través de variables de entorno y preguntas interactivas del mismo script.
+
+- setup-disk, el cual es aplicado sobre un arbol de archivos ya montado en */mnt*. Sobre este sistema se detectan las particiones utilizadas y se realiza la instalación sobre estas mismas.
+
+Para nuestro caso de uso, el segundo script será el usado. Por lo que lo primero q que debemos de hacer es crear el arbol raíz en /mnt.
+
+Montamos nuestra partición raíz sobre /mnt con:
+
+#+begin_src bash 
+mount -t ext4 <particion> /mnt
+#+end_src
+
+Luego, dentro de este, creamos la carpeta /boot con:
+
+#+begin_src bash
+mkdir -p /mnt/boot/efi
+mount -t vfat <particion> /mnt/boot/efi
+#+end_src
+
+Y finalmente, cargamos la partición swap con:
+
+#+begin_src bash 
+swapon <particion>
+#+end_src
+
+Una vez hecho esto, tenemos preparado el arbol de archivos sobre el que se instalará el sistema operativo.
+
+** Instalación de Alpine Linux
+
+Instalamos los siguientes paquetes por si acaso:
+
+#+begin_src bash
+apk add grub-efi efibootmgr
+#+end_src
+
+Corremos el comando:
+
+#+begin_src bash
+BOOTLOADER=grub setup-disk -m sys /mnt
+#+end_src
+
+Al finalizar, reiniciamos y elegimos la nueva entrada en nuestro sistema UEFI. El resultado final es Alpine Linux instalado en bare-metal.
+
+El tiempo de instalación final hasta el reinicio fue: *18:57 minutos*
+
+** Sistema instalado
+
+La versión de Alpine Linux instalada fue la más básica posible, con nada más que los paquetes por default, sin entorno gráfico ni ningún adicional.
+
+El tiempo de arranque de esta instalación es de *26.79 segundos*, medidos desde el primer fotograma de la pantalla inicial de la UEFI. Si medimos el tiempo considerando solamente desde que el hardware le pasa el control a la partición de arranque del sistema, esto nos da *21.12 segundos*
+
+* Debian
+
+** Instalación de Debian
+
+La instalación de Debian es bastante sencilla, sólo hay que seguir los pasos indicados por el asistente.
+
+El tipo de instalación elegido fue el especificado durante todo el curso: mínimo, sin interfaz gráfica y con servidor SSH habilitado.
+
+El tiempo de instalación final hasta el reinicio fue: *22:17 minutos*
+
+** Sistema instalado
+
+La versión de Debian instalada fue la más básica posible, con nada más que los paquetes por default, sin entorno gráfico ni ningún adicional, excepto por el servidor SSH.
+
+El tiempo de arranque de esta instalación es de *23.6 segundos*, medidos desde el primer fotograma de la pantalla inicial de la UEFI. Si medimos el tiempo considerando solamente desde que el hardware le pasa el control a la partición de arranque del sistema, esto nos da *20.71 segundos*
+
+\section{Red Hat Enterprise Linux}
+\label{sec:org0c08d7e}
+
+\subsection{Instalación de Red Hat Enterprise Linux}
+
+La instalación de Red Hat Enterprise Linux se realizó mediante una memoria USB booteable utilizando Ventoy para cargar la imagen ISO del sistema.
+
+El proceso de instalación se llevó a cabo con el asistente gráfico Anaconda, el cual permitió configurar de forma sencilla aspectos como idioma, distribución del teclado, zona horaria, almacenamiento y creación de usuarios.
+
+La instalación se realizó con entorno gráfico GNOME y con los servicios básicos de red habilitados para el funcionamiento del sistema.
+
+El tiempo total de instalación hasta el primer inicio de sesión fue de aproximadamente \textbf{20 minutos}.
+
+\subsection{Sistema instalado}
+
+La instalación base de Red Hat Enterprise Linux ocupó aproximadamente \textbf{9 GB} de almacenamiento, considerando únicamente los paquetes instalados por defecto.
+
+El tiempo de arranque del sistema fue de aproximadamente \textbf{32.98 segundos}, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
+
+\section{Fedora}
+\label{sec:orga68a3e5}
+
+\subsection{Administración y ampliación de almacenamiento}
+
+En Fedora Workstation el sistema operativo ya se encontraba previamente instalado, por lo que únicamente fue necesario ampliar el espacio disponible de la partición principal hasta alcanzar \textbf{64 GB}.
+
+Para ello, se identificaron las particiones existentes utilizando la herramienta gráfica \textbf{Disks} de GNOME y posteriormente se redimensionó la partición correspondiente al sistema Fedora, ubicada en \textbf{/dev/sda6} y configurada con el sistema de archivos \textbf{Btrfs}.
+
+Después del redimensionamiento, se realizaron pruebas de montaje manual desde la terminal para verificar el acceso correcto al sistema de archivos y comprobar la estructura interna del sistema.
+
+\subsection{Sistema instalado}
+
+La instalación base de Fedora Workstation utilizó aproximadamente \textbf{18 GB} de almacenamiento, considerando el entorno gráfico y las aplicaciones preinstaladas.
+
+El tiempo de inicio del sistema fue de aproximadamente \textbf{27 segundos}, medidos desde el encendido del equipo hasta la aparición de la pantalla de inicio de sesión gráfica.
+\end{document}
